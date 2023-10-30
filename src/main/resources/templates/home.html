@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table table-hover">
+    <tr th:each="list :${func1}">
+        <td>[[${list.GeoPoint.get(0)}]]</td>
+        <td>[[${list.RDTO}]]</td>
+
+    </tr>
+</table>
+
+</body>
+</html>
