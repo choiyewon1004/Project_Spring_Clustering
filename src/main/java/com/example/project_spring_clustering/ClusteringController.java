@@ -31,9 +31,9 @@ public class ClusteringController {
 
         Map<GeoPoint, RDTO> data = make_data(init_dummy_data());
         System.out.println("log: here to check test");
-//        for(int i=0;i<data.size();i++){
-//            System.out.println(data.values().stream().toList().get(i).getRoute_nm());
-//        }
+        for(int i=0;i<data.size();i++){
+            System.out.println(data.values().stream().toList().get(i).getRoute_nm());
+        }
         System.out.println("log: init data size : "+ data.size());
 
         List<ClusteringResult> result = kmeansClusteringService.getClusteringResult(data);

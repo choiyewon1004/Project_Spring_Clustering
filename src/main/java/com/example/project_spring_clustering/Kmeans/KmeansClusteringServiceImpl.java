@@ -18,13 +18,25 @@ import java.util.Map;
 
 @Service
 public class KmeansClusteringServiceImpl implements KmeansClusteringService {
+    int kk = 20;
 
     @Override
     public List<ClusteringResult> getClusteringResult(Map<GeoPoint, RDTO> GEO_POINT_MAP){
         List<GeoPoint> geoPointList =  new ArrayList<>(GEO_POINT_MAP.keySet());
         double[][] geoPointArray = getGeoPointArray(geoPointList);
 
-        KMeans clusters = PartitionClustering.run(20, () -> KMeans.fit(geoPointArray, 2));
+        int numberOfGeoPoints = geoPointList.size();
+        if (2 < numberOfGeoPoints && numberOfGeoPoints <= 10) {
+            kk = 3;
+        } else if (10 < numberOfGeoPoints && numberOfGeoPoints <= 20) {
+            kk = 4;
+        } else if (20 < numberOfGeoPoints && numberOfGeoPoints <= 30) {
+            kk = 5;
+        } else if (numberOfGeoPoints > 30) {
+            kk = 6;
+        }
+
+        KMeans clusters = PartitionClustering.run(20, () -> KMeans.fit(geoPointArray, kk));
         Map<Integer, List<GeoPoint>> groupIdGeoPointMap = new HashMap<>();
         for (int i = 0, yLength = clusters.y.length; i < yLength; i++) {
             int groupId = clusters.y[i];
